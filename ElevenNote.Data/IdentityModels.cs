@@ -33,7 +33,7 @@ namespace ElevenNote2.Data
             return new ElevenNote2DbContext();
         }
 
-        public DbSet<NoteEntity> Note { get; set; }
+        public DbSet<NoteEntity> Notes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
