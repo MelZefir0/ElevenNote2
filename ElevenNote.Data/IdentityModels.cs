@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using ElevenNote.Data;
 
 namespace ElevenNote2.Data
 {
@@ -31,6 +32,8 @@ namespace ElevenNote2.Data
         {
             return new ElevenNote2DbContext();
         }
+
+        public DbSet<NoteEntity> Note { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
