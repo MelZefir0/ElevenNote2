@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ElevenNote.Models
 {
      public class NoteListItemModel
-    {
+     { 
         public int NoteId { get; set; }
 
         public string Title { get; set; }
@@ -15,5 +15,5 @@ namespace ElevenNote.Models
         public DateTime CreatedUtc { get; set; }
 
         public DateTime? ModifiedUtc { get; set; }
-    }
+     }
 }

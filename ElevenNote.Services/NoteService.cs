@@ -18,6 +18,35 @@ namespace ElevenNote.Services
             _userId = userId;
         }
 
+        private NoteEntity GetNoteById(ElevenNote2DbContext context, int noteId)
+        {
+            return
+                  context
+                     .Notes
+                     .SingleOrDefault(e => e.NoteId == noteId && e.OwnerId == _userId);
+        }
+        public NoteDetailModel GetNoteById(int id)
+        {
+            NoteEntity entity;
+
+            using (var ctx = new ElevenNote2DbContext())
+            {
+                entity = GetNoteById(ctx, id);
+            }
+
+            if (entity == null) return new NoteDetailModel();
+
+            return
+                new NoteDetailModel
+                {
+                    NoteId = entity.NoteId,
+                    Title = entity.Title,
+                    Content = entity.Content,
+                    CreatedUtc = entity.CreatedUtc,
+                    ModifiedUtc = entity.ModifiedUtc
+                };
+        }
+
         public IEnumerable<NoteListItemModel> GetNotes()
         {
             using (var ctx = new ElevenNote2DbContext())
@@ -56,28 +85,6 @@ namespace ElevenNote.Services
             }
         }
 
-        public NoteDetailModel GetNoteById(int id)
-        {
-            NoteEntity entity;
-
-            using (var ctx = new ElevenNote2DbContext())
-            {
-                entity = GetNoteById(ctx, id);
-            }
-
-            if (entity == null) return new NoteDetailModel();
-
-            return
-                new NoteDetailModel
-                {
-                    NoteId = entity.NoteId,
-                    Title = entity.Title,
-                    Content = entity.Content,
-                    CreatedUtc = entity.CreatedUtc,
-                    ModifiedUtc = entity.ModifiedUtc
-                };
-        }
-
         public bool  UpdateNote(NoteEditModel model)
         {
             using (var ctx = new ElevenNote2DbContext())
@@ -94,14 +101,6 @@ namespace ElevenNote.Services
                 return ctx.SaveChanges() == 1;
             }
 
-        }
-
-        private NoteEntity GetNoteById(ElevenNote2DbContext context, int noteId)
-        {
-            return
-                  context
-                     .Notes
-                     .SingleOrDefault(e => e.NoteId == noteId && e.OwnerId == _userId);
         }
 
         public bool DeleteNote(int noteId)
