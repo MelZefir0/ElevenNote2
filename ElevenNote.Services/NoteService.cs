@@ -57,11 +57,12 @@ namespace ElevenNote.Services
                         .Where(e => e.OwnerId == _userId)
                         .Select(
                             e => new NoteListItemModel
-                                    {
-                                        NoteId = e.NoteId,
-                                        Title = e.Title,
-                                        CreatedUtc = e.CreatedUtc,
-                                        ModifiedUtc = e.ModifiedUtc
+                            {
+                                NoteId = e.NoteId,
+                                Title = e.Title,
+                                IsStarred = e.IsStarred,
+                                CreatedUtc = e.CreatedUtc,
+                                ModifiedUtc = e.ModifiedUtc
                                     })
                             .ToArray();
             }
